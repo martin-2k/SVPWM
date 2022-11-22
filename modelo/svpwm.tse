@@ -1,0 +1,740 @@
+version = 4.2
+
+//
+// Saved by sw version: 2022.3
+//
+
+model "svpwm" {
+    configuration {
+        hil_device = "HIL402"
+        hil_configuration_id = 1
+        simulation_method = exact
+        simulation_time_step = auto
+        simulation_discret_scaling = 1.0
+        dsp_timer_periods = 100e-6, 50e-3
+        ss_calc_method = "systematic elimination"
+        enb_pole_shift = True
+        enb_gds_oversampling = True
+        show_modes = False
+        device_ao_limit_enable = False
+        reset_analog_outputs_on_sim_stop = True
+        reset_digital_outputs_on_sim_stop = True
+        vhil_adio_loopback = False
+        cpl_stb = False
+        enb_dep_sw_detect = False
+        code_section = "internal memory"
+        data_section = "internal memory"
+        sys_sp_rate_1 = 0.0001
+        sys_sp_rate_2 = 0.05
+        sys_real_type_precision = "default"
+        user_real_type_precision = "default"
+        sys_cpu_optimization = "high"
+        user_cpu_optimization = "high"
+        user_cpu_part_option = "default"
+        matrix_based_reduction = True
+        cpl_dynamics_analysis = False
+        export_ss_to_pickle = False
+        ground_scope_core = False
+        dss_num_tol = 1e-15
+        cce_platform = "generic"
+        cce_use_relative_names = False
+        cce_type_mapping_real = "double"
+        cce_type_mapping_uint = "unsigned int"
+        cce_type_mapping_int = "int"
+        cce_directory = ""
+        cce_custom_type_int = ""
+        cce_custom_type_uint = ""
+        cce_custom_type_real = ""
+        tunable_params = "component defined"
+        sp_compiler_type = "C compiler"
+        sig_stim = "off"
+        export_resource_list = ""
+        export_dependency_list = ""
+        export_out_file = ""
+        export_lock_top_level = True
+        export_encrypt_library = True
+        export_encrypt_resources = True
+    }
+
+    component Subsystem Root {
+        component src_voltage Vdc_link {
+            init_const_value = "487.5"
+            param_set = ""
+        }
+        [
+            position = 8176, 8152
+            rotation = right
+        ]
+
+        component "core/Voltage Measurement" Va1 {
+        }
+        [
+            position = 8352, 8216
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Three Phase Inverter" "Three Phase Inverter1" {
+            ctrl_src = "Model"
+            fvd_def_method = "LUT"
+        }
+        [
+            position = 8496, 8208
+            size = 127, 256
+        ]
+
+        component src_rep_seq_disc "Repeating Sequence Discrete1" {
+            execution_rate = "2e-6"
+            out_vec = "Va"
+        }
+        [
+            position = 7816, 7768
+        ]
+
+        component gen_bus_join "Bus Join1" {
+            inputs = "6"
+        }
+        [
+            position = 8384, 7992
+        ]
+
+        component gen_logic_op "Logical operator1" {
+            operator = "NOT"
+        }
+        [
+            position = 7888, 7848
+        ]
+
+        component src_rep_seq_disc "Repeating Sequence Discrete2" {
+            execution_rate = "2e-6"
+            out_vec = "Vb"
+        }
+        [
+            position = 7832, 7936
+        ]
+
+        component gen_logic_op "Logical operator2" {
+            operator = "NOT"
+        }
+        [
+            position = 8000, 7992
+        ]
+
+        component src_rep_seq_disc "Repeating Sequence Discrete3" {
+            execution_rate = "2e-6"
+            out_vec = "Vc"
+        }
+        [
+            position = 7824, 8064
+        ]
+
+        component gen_logic_op "Logical operator3" {
+            operator = "NOT"
+        }
+        [
+            position = 8200, 8032
+        ]
+
+        component "core/Voltage Measurement" Va2 {
+        }
+        [
+            position = 8768, 8200
+            size = 64, 32
+        ]
+
+        component pas_inductor L1 {
+        }
+        [
+            position = 8656, 8112
+        ]
+
+        component pas_inductor L2 {
+        }
+        [
+            position = 8656, 8208
+        ]
+
+        component pas_inductor L3 {
+        }
+        [
+            position = 8648, 8304
+        ]
+
+        component pas_resistor R1 {
+        }
+        [
+            position = 8928, 8104
+            rotation = right
+        ]
+
+        component "core/Voltage Measurement" Va3 {
+        }
+        [
+            position = 8776, 8072
+            size = 64, 32
+        ]
+
+        component pas_resistor R2 {
+        }
+        [
+            position = 8864, 8240
+            rotation = right
+        ]
+
+        component pas_resistor R3 {
+        }
+        [
+            position = 8992, 8280
+            rotation = right
+        ]
+
+        component src_voltage Vdc_link1 {
+            init_const_value = "487.5"
+            param_set = ""
+        }
+        [
+            position = 8176, 8264
+            rotation = right
+        ]
+
+        component src_ground gnd1 {
+        }
+        [
+            position = 8104, 8240
+        ]
+
+        component "core/Voltage Measurement" Va4 {
+        }
+        [
+            position = 8736, 7992
+            rotation = down
+            size = 64, 32
+        ]
+
+        component "core/Voltage Measurement" Va5 {
+        }
+        [
+            position = 8632, 8232
+            rotation = left
+            size = 64, 32
+        ]
+
+        component "core/Voltage Measurement" Va6 {
+        }
+        [
+            position = 8584, 8256
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Voltage Measurement" Va7 {
+        }
+        [
+            position = 8592, 8160
+            rotation = right
+            size = 64, 32
+        ]
+
+        component src_ground gnd2 {
+        }
+        [
+            position = 8928, 8224
+        ]
+
+        junction Junction31 pe
+        [
+            position = 8352, 8112
+        ]
+
+        junction Junction32 pe
+        [
+            position = 8352, 8304
+        ]
+
+        junction Junction33 pe
+        [
+            position = 8176, 8216
+        ]
+
+        junction Junction48 pe
+        [
+            position = 8584, 8304
+        ]
+
+        junction Junction49 pe
+        [
+            position = 8584, 8208
+        ]
+
+        junction Junction50 pe
+        [
+            position = 8576, 8208
+        ]
+
+        junction Junction51 pe
+        [
+            position = 8576, 8112
+        ]
+
+        junction Junction52 sp
+        [
+            position = 7856, 7768
+        ]
+
+        junction Junction53 sp
+        [
+            position = 7936, 7936
+        ]
+
+        junction Junction54 sp
+        [
+            position = 8128, 8064
+        ]
+
+        junction Junction55 pe
+        [
+            position = 8600, 8304
+        ]
+
+        junction Junction56 pe
+        [
+            position = 8928, 8176
+        ]
+
+        junction Junction57 pe
+        [
+            position = 8928, 8176
+        ]
+
+        junction Junction58 pe
+        [
+            position = 8736, 8112
+        ]
+
+        junction Junction59 pe
+        [
+            position = 8816, 8280
+        ]
+
+        junction Junction62 pe
+        [
+            position = 8704, 8112
+        ]
+
+        junction Junction63 pe
+        [
+            position = 8760, 8320
+        ]
+
+        junction Junction64 pe
+        [
+            position = 8704, 8208
+        ]
+
+        junction Junction65 pe
+        [
+            position = 8808, 8320
+        ]
+
+        connect "Bus Join1.out" "Three Phase Inverter1.s_ctrl" as Connection71
+        connect Va1.p_node Junction31 as Connection176
+        connect Junction31 "Three Phase Inverter1.pos_out" as Connection177
+        [
+            breakpoints = 8352, 8112; 8352, 8112
+        ]
+        connect Vdc_link.p_node Junction31 as Connection178
+        connect Va1.n_node Junction32 as Connection181
+        connect Junction32 "Three Phase Inverter1.neg_out" as Connection182
+        [
+            breakpoints = 8352, 8304; 8352, 8304; 8352, 8304
+        ]
+        connect Vdc_link1.n_node Junction32 as Connection183
+        connect gnd1.node Junction33 as Connection185
+        connect Junction33 Vdc_link1.p_node as Connection186
+        connect Junction33 Vdc_link.n_node as Connection207
+        [
+            breakpoints = 8176, 8216; 8176, 8224
+        ]
+        connect Junction48 "Three Phase Inverter1.c_in" as Connection269
+        connect Va6.n_node Junction48 as Connection270
+        connect Junction49 L2.p_node as Connection272
+        [
+            breakpoints = 8608, 8208
+        ]
+        connect Va6.p_node Junction49 as Connection273
+        connect "Three Phase Inverter1.b_in" Junction50 as Connection274
+        connect Junction50 Junction49 as Connection275
+        connect Va7.n_node Junction50 as Connection276
+        connect Junction51 "Three Phase Inverter1.a_in" as Connection278
+        connect Va7.p_node Junction51 as Connection279
+        connect "Repeating Sequence Discrete1.out" Junction52 as Connection281
+        connect Junction52 "Bus Join1.in" as Connection282
+        connect "Logical operator1.in" Junction52 as Connection283
+        connect "Logical operator1.out" "Bus Join1.in1" as Connection284
+        connect "Repeating Sequence Discrete2.out" Junction53 as Connection286
+        connect Junction53 "Bus Join1.in2" as Connection287
+        connect "Logical operator2.in" Junction53 as Connection288
+        connect "Logical operator2.out" "Bus Join1.in3" as Connection289
+        connect "Repeating Sequence Discrete3.out" Junction54 as Connection291
+        connect Junction54 "Bus Join1.in4" as Connection292
+        connect "Logical operator3.in" Junction54 as Connection293
+        connect "Logical operator3.out" "Bus Join1.in5" as Connection294
+        connect Junction51 L1.p_node as Connection296
+        [
+            breakpoints = 8576, 8112; 8608, 8112
+        ]
+        connect Va5.n_node L1.p_node as Connection297
+        connect L3.p_node Junction55 as Connection298
+        connect Junction55 Junction48 as Connection299
+        [
+            breakpoints = 8600, 8304
+        ]
+        connect Va5.p_node Junction55 as Connection300
+        connect gnd2.node Junction56 as Connection302
+        connect Junction56 R1.n_node as Connection303
+        connect R3.p_node Junction57 as Connection305
+        connect Junction57 Junction56 as Connection306
+        connect R2.p_node Junction57 as Connection307
+        connect R1.p_node Junction58 as Connection311
+        connect Va3.p_node Junction58 as Connection313
+        connect R2.n_node Junction59 as Connection314
+        connect Va3.n_node Junction59 as Connection316
+        connect Junction58 Junction62 as Connection323
+        connect Junction62 L1.n_node as Connection324
+        connect Va4.n_node Junction62 as Connection325
+        connect Junction63 L3.n_node as Connection327
+        connect Va4.p_node Junction63 as Connection328
+        connect L2.n_node Junction64 as Connection331
+        connect Junction64 Junction59 as Connection332
+        [
+            breakpoints = 8704, 8208
+        ]
+        connect Va2.p_node Junction64 as Connection333
+        connect Junction63 Junction65 as Connection334
+        [
+            breakpoints = 8760, 8320
+        ]
+        connect Junction65 R3.n_node as Connection335
+        [
+            breakpoints = 8800, 8320
+        ]
+        connect Va2.n_node Junction65 as Connection336
+    }
+
+    default {
+        gen_bus_join {
+            inputs = "2"
+            execution_rate = "inherit"
+        }
+
+        gen_logic_op {
+            operator = "AND"
+            inputs = "2"
+            execution_rate = "inherit"
+        }
+
+        pas_inductor {
+            inductance = "1e-3"
+            initial_current = "0.0"
+            pole_shift_ignore = "False"
+            visible = "True"
+        }
+
+        pas_resistor {
+            resistance = "1"
+            param_set = ""
+        }
+
+        src_rep_seq_disc {
+            out_vec = "[0,2,3,1,5]"
+            signal_type = "real"
+            execution_rate = "100e-6"
+        }
+
+        src_voltage {
+            sig_input = "False"
+            type = "signal generator"
+            param_set = "1phase"
+            parent_label = ""
+            addr = "0"
+            spc_nb = "0"
+            execution_rate = "100e-6"
+            cpd_visible = "True"
+            enable_snb = "False"
+            snb_type = "R2"
+            R2 = "0.0"
+            L1 = "0.1"
+            override_signal_name = "False"
+            signal_name = ""
+            init_source_nature = "Constant"
+            init_const_value = "0.0"
+            init_rms_value = "0.0"
+            init_frequency = "50.0"
+            init_phase = "0.0"
+        }
+
+        "core/Three Phase Inverter" {
+            ctrl_src = "Digital input per switch"
+            op_mode = "Fixed carrier frequency"
+            carrier_freq = "10000.0"
+            carr_ph_offset = "0.0"
+            d_time = "5e-6"
+            ref_sig_min_max = "[-1.0, 1.0]"
+            load_mode = "on min"
+            execution_rate = "inherit"
+            Sa_top = "1"
+            Sa_top_logic = "active high"
+            Sa_bot = "2"
+            Sa_bot_logic = "active high"
+            Sb_top = "3"
+            Sb_top_logic = "active high"
+            Sb_bot = "4"
+            Sb_bot_logic = "active high"
+            Sc_top = "5"
+            Sc_top_logic = "active high"
+            Sc_bot = "6"
+            Sc_bot_logic = "active high"
+            delay_enabled = "False"
+            fixed_delay = "1e-6"
+            var_delay_lut = "[-10.0, 1e-6, 10.0, 1e-6]"
+            preview_var_delay = "Preview"
+            Sa_top_I = "False"
+            Sa_bot_I = "False"
+            Sb_top_I = "False"
+            Sb_bot_I = "False"
+            Sc_top_I = "False"
+            Sc_bot_I = "False"
+            fvd = "False"
+            losses_estimation = "False"
+            fvd_def_method = "Voltage and Resistance"
+            Import_igbt_xml = "not selected"
+            Import_diode_xml = "not selected"
+            Switch_type = "IGBT"
+            Vce = "1.3"
+            Rce = "0"
+            Vd = "1.2"
+            Rd = "0"
+            i_sw = "[0.0, 6.0, 12.0, 18.0, 24.0]"
+            v_sw = "[0.0, 600.0]"
+            temp_sw = "[25.0, 50.0, 75.0, 100.0, 125.0]"
+            vce_table_out = "[1.3, 1.3, 1.3, 1.3, 1.3]"
+            vd_table_out = "[1.2, 1.2, 1.2, 1.2, 1.2]"
+            et_on_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*3.8e-3, 0.4*3.8e-3, 0.8*3.8e-3, 0.68*3.8e-3, 0.9*3.8e-3], [0.65*3.8e-3, 0.9*3.8e-3, 1.2*3.8e-3, 1.5*3.8e-3, 1.7*3.8e-3], [0.9*3.8e-3, 1.3*3.8e-3, 1.7*3.8e-3, 1.9*3.8e-3, 2.25*3.8e-3], [1.1*3.8e-3, 1.7*3.8e-3, 2.1*3.8e-3, 2.3*3.8e-3, 2.5*3.8e-3]]"
+            et_off_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*2.1e-3, 0.4*2.1e-3, 0.8*2.1e-3, 0.68*2.1e-3, 0.9*2.1e-3], [0.65*2.1e-3, 0.9*2.1e-3, 1.2*2.1e-3, 1.5*2.1e-3, 1.7*2.1e-3], [0.9*2.1e-3, 1.3*2.1e-3, 1.7*2.1e-3, 1.9*2.1e-3, 2.25*2.1e-3], [1.1*2.1e-3, 1.7*2.1e-3, 2.1*2.1e-3, 2.3*2.1e-3, 2.5*2.1e-3]]"
+            ed_off_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*2.2e-3, 0.4*2.2e-3, 0.8*2.2e-3, 0.68*2.2e-3, 0.9*2.2e-3], [0.65*2.2e-3, 0.9*2.2e-3, 1.2*2.2e-3, 1.5*2.2e-3, 1.7*2.2e-3], [0.9*2.2e-3, 1.3*2.2e-3, 1.7*2.2e-3, 1.9*2.2e-3, 2.25*2.2e-3], [1.1*2.2e-3, 1.7*2.2e-3, 2.1*2.2e-3, 2.3*2.2e-3, 2.5*2.2e-3]]"
+            temp_estimation = "False"
+            thermal_networks_type = "Foster"
+            switch_Rth = "[0.159, 0.133, 0.120, 0.038]"
+            switch_Tth = "[1.1e-1, 1.56e-2, 1.35e-3, 1.51e-4]"
+            switch_Cth = "[0.0029, 0.0097, 0.1068, 0.8500]"
+            diode_Rth = "[0.159, 0.133, 0.120, 0.038]"
+            diode_Tth = "[1.1e-1, 1.56e-2, 1.35e-3, 1.51e-4]"
+            diode_Cth = "[0.0029, 0.0097, 0.1068, 0.8500]"
+            loss_exec_rate = "100e-6"
+            visualize_luts = "Visualize Lookup Tables"
+            vout_cmp_pullup_mode = "False"
+            show_cnt_out = "False"
+            show_monitoring = "False"
+            _control_property = "all high"
+            pwm_enabling = "False"
+            pwm_enable_di = "13"
+            pwm_enable_inv = "active high"
+            dtv_flag_en = "True"
+        }
+
+        "core/Voltage Measurement" {
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            sig_output_filt_and_full_bw = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+    }
+
+    CODE model_init
+        # Numpy module is imported as 'np'
+        # Scipy module is imported as 'sp'
+        # The Schematic API is imported as 'mdl'
+        # To get the model file path, use 'mdl.get_model_file_path()'
+        # To print information to the console, use info()
+        
+        from numpy.linalg import inv
+        import math
+        import numpy as np
+        def clarck(va,vb,vc)->np.array:#[alpha;betta]
+            M=(2/3)*np.array([[1,-1/2,-1/2],[0,np.sqrt(3)/2,-np.sqrt(3)/2]])
+            R=np.matmul(M,[[va],[vb],[vc]])
+            return R
+        
+        def basisChange(m,Vr,Vdc)->np.array:#[d_m,d_(m+1)]
+            M=Vdc*np.array([[np.cos((2*np.pi/6)*(m-1)), np.cos((2*np.pi/6)*(m))],[np.sin((2*np.pi/6)*(m-1)), np.sin((2*np.pi/6)*(m))]])
+            d=np.matmul(inv(M),Vr)
+            return d
+        
+        def sector(Va,Vb)->int:
+            if(Va==0):
+                if(Vb>=0):
+                    m=2
+                else:
+                    m=5
+            elif(Va>=0):
+                if(2*np.pi/6>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=0):
+                    m=1
+                elif(np.pi/2>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=2*np.pi/6):
+                    m=2
+                elif(0>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=-2*np.pi/6):
+                    m=6
+                elif(-2*np.pi/6>np.arctan(Vb/Va) and np.arctan(Vb/Va)>-np.pi/2):
+                    m=5
+            elif(Va<0):
+                if(2*np.pi/6>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=0):
+                    m=4
+                elif(np.pi/2>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=2*np.pi/6):
+                    m=5
+                elif(0>np.arctan(Vb/Va) and np.arctan(Vb/Va)>=-2*np.pi/6):
+                    m=3
+                elif(-2*np.pi/6>np.arctan(Vb/Va) and np.arctan(Vb/Va)>-np.pi/2):
+                    m=2
+        
+            return m
+        
+        #Señales de referencia
+        freq=60#Hz
+        Vdc=975
+        Amp=630#V Vdc*np.cos(np.deg2rad(30)) es el maximo posible sin llegar a sobremodulacion
+        n=80#Numero de vectores
+        Ts=(1/freq)/n
+        l=100#Ts se divide en 100 pasos para simular un continuo
+        t=np.linspace(0,1/60,n)
+        
+        S1=Amp*np.cos(2*np.pi*freq*t)#va
+        S2=Amp*np.cos(2*np.pi*freq*t-2*np.pi/3)#vb
+        S3=Amp*np.cos(2*np.pi*freq*t+2*np.pi/3)#vc
+        
+        ref=np.empty((2,len(t)))#Vector referencia [alpha;betta]
+        
+        #Crea vector de referencia
+        for i in range(len(t)):
+            r=clarck(S1[i],S2[i],S3[i])
+            ref[0][i]=r[0]#Valpha
+            ref[1][i]=r[1]#Vbetta
+        
+        pulsos=np.empty((3,7*len(t)))#Una fila por switch y una columna por estado sucesivo. Se usan 5 por periodo para reducir THD
+        time=np.empty((1,7*len(t)))#Duracion de cada estado
+        num_rows, num_cols = time.shape
+        for j in range(len(t)):
+            m=sector(ref[0][j],ref[1][j])
+            d=basisChange(m,np.array([[ref[0][j]],[ref[1][j]]]),Vdc)#[d_m,d_(m+1)]
+            d0=1-d[0]-d[1]
+        
+            V0_e0=np.array([0,0,0])
+            V0_e1=np.array([1,1,1])
+        
+            if(m==1):
+                Vm_e=np.array([[1,0,0]])
+                Vmp1_e=np.array([[1,1,0]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+            elif(m==2):
+                Vm_e=np.array([[1,1,0]])
+                Vmp1_e=np.array([[0,1,0]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+            elif(m==3):
+                Vm_e=np.array([[0,1,0]])
+                Vmp1_e=np.array([[0,1,1]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+            elif(m==4):
+                Vm_e=np.array([[0,1,1]])
+                Vmp1_e=np.array([[0,0,1]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+            elif(m==5):
+                Vm_e=np.array([[0,0,1]])
+                Vmp1_e=np.array([[1,0,1]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+            else:
+                Vm_e=np.array([[1,0,1]])
+                Vmp1_e=np.array([[1,0,0]])
+                pulsos[:,j*7]=V0_e0
+                pulsos[:,j*7+1]=Vm_e
+                pulsos[:,j*7+2]=Vmp1_e
+                pulsos[:,j*7+3]=V0_e0
+                pulsos[:,j*7+4]=Vmp1_e
+                pulsos[:,j*7+5]=Vm_e
+                pulsos[:,j*7+6]=V0_e0
+        
+            time[:,j*7]=d0*(1/4)
+            time[:,j*7+1]=d[0]/2
+            time[:,j*7+2]=d[1]/2
+            time[:,j*7+3]=d0*(2/4)
+            time[:,j*7+4]=d[1]/2
+            time[:,j*7+5]=d[0]/2
+            time[:,j*7+6]=d0*(1/4)
+        
+        
+        #EXTENCION PARA PRUEBA EN TYPHOON
+        
+        pulsos_T=np.zeros((3,l*n))#l puntos por vector para poder simular el tiempo de cada uno
+        
+        r=0
+        k=0 
+        for i in range(len(time[0,:])):
+            h=math.floor(time[0,i]*l)#Numero de entradas que ocupa el vector
+            for j in range(h):
+                pulsos_T[:,k]=pulsos[:,i]
+                k+=1
+            if((i+1)%7==0):
+                r+=1
+                k=r*l
+        
+        #for x in pulsos_T[0,:]:print(x)
+        Va=pulsos_T[0,:]
+        Vb=pulsos_T[1,:]
+        Vc=pulsos_T[2,:]
+        
+        
+    ENDCODE
+}
